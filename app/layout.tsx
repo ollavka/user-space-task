@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { Providers } from '@/components/providers';
+import { Providers } from '@/components/Providers';
 import { HomeButton } from '@/components/HomeButton';
 import { Container } from '@chakra-ui/react';
 
