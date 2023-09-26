@@ -4,7 +4,7 @@
 import { FC, useEffect } from 'react';
 import { User } from '@/types';
 import { useFetch } from '@/hooks/useFetch';
-import { Text, Flex, Image } from '@chakra-ui/react';
+import { Text, Flex, Image, useMediaQuery } from '@chakra-ui/react';
 import { Loader } from './Loader';
 import { getUserById } from '@/api/users';
 import toast from 'react-hot-toast';
@@ -15,6 +15,7 @@ type Props = {
 };
 
 export const Profile: FC<Props> = ({ userId }) => {
+  const [isSmallerThan670] = useMediaQuery("(max-width: 670px)");
   const { data: user, isLoading, error } = useFetch<User>({
     req: () => getUserById(userId),
   });
@@ -49,32 +50,35 @@ export const Profile: FC<Props> = ({ userId }) => {
 
   if (!isLoading && !user) {
     return (
-      <Text 
-        fontSize="4xl" 
+      <Text
+        fontSize="4xl"
         fontWeight="600"
       >
         User with id {userId} not found
       </Text>
     );
   }
-  
+
   const { address, company, ...userData } = user as User;
 
+  const flexDirection = isSmallerThan670 ? "column" : "row-reverse";
+
   return (
-    <Flex 
+    <Flex
       justify="space-between"
-      direction="row-reverse"
+      direction={flexDirection}
       gap={10}
-      p={4} 
-      shadow="md" 
-      borderWidth="1px" 
+      p={4}
+      shadow="md"
+      borderWidth="1px"
       borderRadius="md"
     >
-      <Image 
+      <Image
         src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userData.username}`}
         width={300}
         height={300}
         alt="user's avatar"
+        alignSelf="center"
       />
 
       <Flex
@@ -85,9 +89,9 @@ export const Profile: FC<Props> = ({ userId }) => {
         <Text>@{userData.username}</Text>
 
         <Text>
-          Email:&nbsp; 
+          Email:&nbsp;
           <a
-            href={`mailto:${userData.email}`} 
+            href={`mailto:${userData.email}`}
             style={{ color: 'blue' }}
           >
             {userData.email}
@@ -95,9 +99,9 @@ export const Profile: FC<Props> = ({ userId }) => {
         </Text>
 
         <Text>
-          Phone:&nbsp; 
+          Phone:&nbsp;
           <a
-            href={`tel:${userData.phone}`} 
+            href={`tel:${userData.phone}`}
             style={{ color: 'green' }}
           >
             {userData.phone}
@@ -105,9 +109,9 @@ export const Profile: FC<Props> = ({ userId }) => {
         </Text>
 
         <Text>
-          Website:&nbsp; 
-          <a 
-            href={`https://${userData.website}`} 
+          Website:&nbsp;
+          <a
+            href={`https://${userData.website}`}
             target="_blank"
             style={{ color: 'red' }}
           >

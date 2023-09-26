@@ -105,7 +105,11 @@ export const TableColumnHead: FC<Props> = ({ title }) => {
         <Link
           href={{ pathname, query: getNewQuery() }}
         >
-          <Flex justify="space-between" align="center">
+          <Flex 
+            justify="space-between" 
+            align="center" 
+            gap={5}
+          >
             <span>{title}</span>
 
             <Flex direction="column">
