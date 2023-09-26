@@ -1,5 +1,6 @@
 {
-  "name": "my-app",
+  "name": "user-space-task",
+  "homepage": "https://ollavka.github.io/user-space-task",
   "version": "0.1.0",
   "private": true,
   "scripts": {
